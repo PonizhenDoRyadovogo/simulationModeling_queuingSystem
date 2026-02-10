@@ -56,6 +56,10 @@ def simulation_mm11(lam: float, mu: float, end_time: float, seed: Optional[int]=
     p_hat = (lost / arrived) if arrived > 0 else 0.0 # оценка вероятности потери заявки
     return p_hat, arrived, lost
 
+def p_loss_theory(lam: float, mu: float) -> float:
+    # Теоретическая вероятность потери для M/M/1/1: p = lam / (lam + mu)
+    return lam / (lam + mu)
+
 if __name__ == "__main__":
     lam = float(input("Введите lambda: ").strip())
     mu = float(input("Введите mu: ").strip())
@@ -66,4 +70,5 @@ if __name__ == "__main__":
 
     p_hat, arrived, lost = simulation_mm11(lam, mu, end_time, seed)
 
-    print(f"p_loss_hat = {p_hat:.5f}")
+    print(f"Оценка вероятности потери заявки: {p_hat:.5f}")
+    print(f"Теоретическая вероятность потери заявки: {p_loss_theory(lam, mu):.5f}")
